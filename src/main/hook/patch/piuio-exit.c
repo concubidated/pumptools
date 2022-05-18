@@ -54,9 +54,12 @@ static enum cnh_result patch_piuio_exit_usbhook(struct cnh_usbhook_irp *irp)
       result = cnh_usbhook_invoke_next(irp);
 
       /* Post process inputs */
-      if (irp->ctrl_req_type == PIUIO_DRV_USB_CTRL_TYPE_IN &&
-          irp->ctrl_req == PIUIO_DRV_USB_CTRL_REQUEST) {
-        if (irp->ctrl_buffer.nbytes != PIUIO_DRV_BUFFER_SIZE) {
+      if ((irp->ctrl_req_type == PIUIO_DRV_USB_CTRL_TYPE_IN &&
+          irp->ctrl_req == PIUIO_DRV_USB_CTRL_REQUEST) || 
+          (irp->ctrl_req_type == PATCH_PIUIO_KHACK_CTRL_REQ_TYPE &&
+          irp->ctrl_req == PATCH_PIUIO_KHACK_CTRL_REQ)) {
+        if (irp->ctrl_buffer.nbytes != PIUIO_DRV_BUFFER_SIZE &&
+            irp->ctrl_buffer.nbytes != PATCH_PIUIO_KHACK_BUFFER_SIZE) {
           log_error(
               "Invalid buffer size for ctrl in: %d", irp->ctrl_buffer.nbytes);
         } else {

@@ -4,11 +4,6 @@
 
 #include "util/log.h"
 
-#define PATCH_PIUIO_KHACK_CTRL_REQ_TYPE 0
-#define PATCH_PIUIO_KHACK_CTRL_REQ 0
-#define PATCH_PIUIO_KHACK_TIMEOUT 10011
-#define PATCH_PIUIO_KHACK_BUFFER_SIZE PIUIO_DRV_BUFFER_SIZE * 4
-
 static enum cnh_result patch_piuio_khack_usbhook(struct cnh_usbhook_irp *irp);
 
 static usb_dev_handle *_patch_piuio_khack_usb_handle;
